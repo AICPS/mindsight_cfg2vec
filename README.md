@@ -1,4 +1,4 @@
-TreeEmbedding: cfg2vec methodology for Function Name Reconstruction and Patch Situation
+Cfg2vec methodology for Function Name Reconstruction and Patch Situation
 =====================
 TreeEmbedding is a repository maintained by the UCI team for a Hierarchical Graph Neural Network (GNN) based approach for cross-architectural function name prediction.
 
@@ -89,34 +89,3 @@ We made the script that utilizes the pre-trained cfg2vec model to run on Mindsig
     --topk 10 --o result_fpd.log --device cuda
     ```
     The resulting log file can be found in the [scripts/](scripts/) folder.
-2. To run the script on CPU:
-    1. Follow the instructions on [Installation Guide](#Running_cfg2vec) and install the necessary packages if you haven't done so already.
-    2. Install poetry for dependency management and packaging, and poetry to your PATH.
-    ```sh
-    $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 - 
-    # check if poetry is installed successfully
-    $ poetry --version
-    # add poetry to your PATH
-    $ export PATH="$HOME/.poetry/bin:$PATH"
-    ```
-    3. Install necessary packages
-    ```sh
-    $ poetry install
-    ```
-    4. Download the testing pre-trained models and function name prediction database [here](https://drive.google.com/file/d/10BNB395oh5ZXaLRNAoH8_uTa-AHobUF0/view?usp=sharing).
-    5. Download the testing data [here](https://drive.google.com/file/d/10D7r1YNogRY9IOGumCpJb4YaRdaghHUw/view?usp=sharing).
-    6. Run the following commands for function name prediction or function matching .
-
-    ```sh
-    $ cd scripts/
-
-    # for function matching task.
-    $ poetry run python app_cfg2vec.py --mode func_match --p1 ../data/match_predict_test/ipe5toxml___ipe5toxml-amd64.bin \
-    --p2 ../data/match_predict_test/m-tx___prepmx-amd64.bin --pml "./saved_models/amd64-armel-i386-mipsel-20" \
-    --topk 10 --o result_fm.log --device cpu
-
-    # for function name prediction task. 
-    $ poetry run python app_cfg2vec.py --mode func_pred --p ../data/match_predict_test/ipe5toxml___ipe5toxml-amd64.bin \
-    --pdb amd64-armel-i386-mipsel-20.pkl --pml "./saved_models/amd64-armel-i386-mipsel-20" \
-    --topk 10 --o result_fpd.log --device cpu
-    ```
