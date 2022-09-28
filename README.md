@@ -67,7 +67,7 @@ $ python exp_cfg2vec_allstar.py --dataset_path ../data/amd64-armel-i386-mipsel-2
 ```
 The prediction scores can be found in the [scripts/result](scripts/result) folder. 
 
-## Testing for CI/CD 
+## Testing for function name prediction
 We made the script that utilizes the pre-trained cfg2vec model to run on Mindsight applications (function name prediction/function matching). The script can be run using either GPU or CPU. 
 1. To run the script on a GPU:
     1. Follow the instructions on [Installation Guide](#Running_cfg2vec) and install the necessary packages if you haven't done so already.
