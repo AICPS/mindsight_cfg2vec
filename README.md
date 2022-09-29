@@ -34,7 +34,7 @@ $ conda install pygraphviz
 - we also provide simple training dataset
     - extracting the dataset 
     ```python
-    $ tar xvf toy_dataset.tar.gz
+    $ unzip toy_dataset.zip
     ```
 
 ## Training `cfg2vec`
