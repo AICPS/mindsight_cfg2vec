@@ -35,6 +35,9 @@ $ conda install pygraphviz
     - extracting the dataset 
     ```python
     $ unzip toy_dataset.zip
+    $ mkdir data
+    $ mv toy_train/ data/
+    $ mv toy_test/ data/
     ```
 
 ## Training `cfg2vec`
@@ -59,7 +62,7 @@ Example:
 ```python
 # to run cfg2vec with the sample dataset
 $ cd scripts/
-$ python exp_cfg2vec_allstar.py --dataset_path ../toy_train --pickle_path toy_train.pkl --seed 1 --device cuda --epochs 100 --batch_size 4 --pml "./saved_models/toy_train"  --architectures 'armel, amd64, i386, mipsel'
+$ python exp_cfg2vec_allstar.py --dataset_path ../data/toy_train --pickle_path toy_train.pkl --seed 1 --device cuda --epochs 100 --batch_size 4 --pml "./saved_models/toy_train"  --architectures 'armel, amd64, i386, mipsel'
 ```
 
 ## To Evaluate the Trained Model
@@ -78,7 +81,7 @@ $ rmdir saved_models/
 3. Then you may use the following commands to evaluate the model. 
 ```python
 $ cd scripts/
-$ python exp_cfg2vec_allstar.py --dataset_path ../toy_train --pickle_path toy_train.pkl --seed 1 --device cuda --epochs 100 --batch_size 4 --pml "./saved_models/toy_train"  --architectures 'armel, amd64, i386, mipsel'  --eval_only True --eval_dataset_path ../toy_test --eval_pickle_path toy_test.pkl
+$ python exp_cfg2vec_allstar.py --dataset_path ../data/toy_train --pickle_path toy_train.pkl --seed 1 --device cuda --epochs 100 --batch_size 4 --pml "./saved_models/toy_train"  --architectures 'armel, amd64, i386, mipsel'  --eval_only True --eval_dataset_path ../data/toy_test --eval_pickle_path toy_test.pkl
 ```
 The prediction scores can be found in the [scripts/result](scripts/result) folder. 
 
