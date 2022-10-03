@@ -6,14 +6,14 @@ TreeEmbedding is a repository maintained by the UCI team for a Hierarchical Grap
 
 ## Environmental Setup
 
-### Step 1. Clone the repo and Create your Conda Working Environment
+### Step 1. clone the repo and Create your Conda Working Environment
 It is recommended to use the Anaconda virtual environment with Python 3.6. The guide for installing Anaconda on Linux is [here](https://docs.anaconda.com/anaconda/install/linux/). 
 ```sh
     $ git clone https://github.com/AICPS/mindsight_cfg2vec.git
     $ conda create --name [your env name] python=3.6
     $ conda activate [your env name]
 ```
-### Step 2. Resolve Package Requirements 
+### Step 2. resolve Package Requirements 
 This step was made based on a server with cuda 10.1 installed. You can also adjust the installation of torch and pyg according the hardware you have in your local (e.g., cpu or higher cuda).
 ```sh
     $ cd mindsight_cfg2vec
@@ -24,43 +24,33 @@ This step was made based on a server with cuda 10.1 installed. You can also adju
     $ conda install pygraphviz
 ```
 
-## Training `cfg2vec`
+## Playing (Train, Test, Evaluate) our `cfg2vec`
 
-### training dataset
-- Generated new training dataset with instructions in [./data_proc/README.md](/data_proc/README.md)
-- we also provide simple training dataset
-    - extracting the dataset 
-    ```python
-    $ unzip toy_dataset.zip
-    $ mkdir data
-    $ mv toy_train/ data/
-    $ mv toy_test/ data/
-    ```
-The [`exp_cfg2vec_allstar.py`](scripts/exp_cfg2vec_allstar.py) python script is used to train the `cfg2vec` model. 
-We used the *AllStar dataset*, which contains binary packages that are converted to a `CFG` representation.
-With a combination of `CFG` and `GoG` Embedding layers, the model is trained to predict the `top-k` list of function names in a binary. The user may follow the steps below in order to carry out the aforementioned preprocessing, training, and evaluation.
+### Step 1. prepare the training dataset
+If you have your own binary dataset and want to run it with our code, please refer how to generate new training dataset's instructions in [./data_proc/README.md](/data_proc/README.md). However, this could take a much longer time. 
 
-For users who want to visualize the model training progress using [wandb](https://wandb.ai/site), we have enabled the support, and you just need to enable the option in the command line argument using `--use_wandb`. You may set the name of the wandb project using the `--wandb_project` option. 
+In this guide, we also provide a simple training dataset ([./toy_dataset.zip](./toy_dataset.zip)), which is a small subset of our derived *allStar dataset* mentioned in the paper. We suggest that try this out and see how our `cfg2vec` works first! Extract it right inplace.
+```python
+$ unzip toy_dataset.zip
+$ mkdir data
+$ mv toy_train/ data/
+$ mv toy_test/ data/
+```
 
-General command:
+### Step 2. train our `cfg2vec` model
+To train the `cfg2vec`, you can carry out the preprocessing, training, and evaluation with the following command:
 ```python
 $ cd scripts/
-$ python exp_cfg2vec_allstar.py --dataset_path [datasetpath] --pickle_path [.pkl file path] --seed 1 \
-    --device cuda --epochs 100 --batch_size 4 --use_wandb --pml [path to model] \
-    --wandb_project cfg2vec --architectures 'armel, amd64, i386, mipsel'
-# to see more information about arguments
+$ python exp_cfg2vec_allstar.py --dataset_path [datasetpath] --pickle_path [.pkl file path] --device cuda --epochs 100 --batch_size 4 --use_wandb --pml [path to model] --architectures 'armel, amd64, i386, mipsel'
+# an example using the `toy_train`
+$ python exp_cfg2vec_allstar.py --dataset_path ../data/toy_train --pickle_path toy_train.pkl --seed 1 --device cuda --epochs 100 --batch_size 4 --pml "./saved_models/toy_train" --architectures 'armel, amd64, i386, mipsel'
+```
+For more info regarding hyperparemeters and arguments, you can hit this command:
+```
 $ python exp_cfg2vec_allstar.py -h 
 ```
 
-To train the model, you may refer to the following commands. The following command using the `toy_train`.
-Example:
-```python
-# to run cfg2vec with the sample dataset
-$ cd scripts/
-$ python exp_cfg2vec_allstar.py --dataset_path ../data/toy_train --pickle_path toy_train.pkl --seed 1 --device cuda --epochs 100 --batch_size 4 --pml "./saved_models/toy_train"  --architectures 'armel, amd64, i386, mipsel'
-```
-
-## To Evaluate the Trained Model
+### Step 3. Test and Evaluate our `cfg2vec`
 The [`exp_cfg2vec_allstar.py`](scripts/exp_cfg2vec_allstar.py) script can be used to evaluate the trained model. We have provided a sample testing dataset to test the performance of our model. We have also provided a pre-trained model that can be downloaded for this purpose. The step-by-step guide to evaluating the model is:
 1. Check if the test dataset (`toy_test`) is existed. This is an simple processed test dataset. If you have other binary, and want to test with it then you need preprocessing it by following instruction [here](/data_proc/README.md).
 2. We also provide an pre-trained model which can be download from [here](https://drive.google.com/file/d/1MClvWI8zh1TbNxwHVObUmtPu-huBgiKB/view?usp=sharing). This model is trained with binaries compiled for 3 architectures (amd64, armel, and i386).
