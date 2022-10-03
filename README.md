@@ -2,12 +2,7 @@ Cfg2vec: a Hierarchical Graph Neural Network (GNN) methodology for Cross-Archite
 =====================
 Mission-critical embedded systems leverage software to service our society's infrastructure. However, these systems are exposed to new vulnerabilities as technologies advance. When security issues arise, typically, Reverse Engineers (REs) inspect vulnerable binaries and patch them utilizing Software Reverse Engineering (SRE) tools. However, existing tools have limited support, forcing REs to interpret the source-level semantics for each coding element manually. Such a manual process requires experience and expertise, hence being time-consuming, costly, and error-prone. 
 
-In this repo, we provide the implementation of our proposed `cfg2vec`, a Hierarchical Graph Neural Network (GNN) based approach for improving SRE tools in function name reconstruction.
-To represent binary code, we propose a novel `Graph-of-Graph `(GoG) representation, combining the information of control-flow graphs and function-call graphs. 
-Then, our `cfg2vec` learns how to represent each binary function compiled from various CPU architectures, utilizing the proposed hierarchical GNN and the siamese-based learning architecture.
-We evaluate `cfg2vec`'s capability of predicting function names from binaries stripped debugging information.
-
-Please refer to the following figure to get a grisp of our overall architecture.
+In this repo, we provide the implementation of our proposed `cfg2vec`, a Hierarchical Graph Neural Network (GNN) based approach for improving SRE tools in function name reconstruction. To represent binary code, we propose a novel `Graph-of-Graph `(GoG) representation, combining the information of control-flow graphs and function-call graphs. Then, our `cfg2vec` learns how to represent each binary function compiled from various CPU architectures, utilizing the proposed hierarchical GNN and the siamese-based learning architecture. Please refer to the following figure to get a grisp of our overall architecture.
 
 ![](https://github.com/AICPS/mindsight_cfg2vec/blob/6ae0a26c90ad2c639b925ac5029cfa6c9de789d0/archi.png)
 
