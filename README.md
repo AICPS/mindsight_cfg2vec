@@ -4,7 +4,7 @@ TreeEmbedding is a repository maintained by the UCI team for a Hierarchical Grap
 
 ![](https://github.com/AICPS/mindsight_cfg2vec/blob/6ae0a26c90ad2c639b925ac5029cfa6c9de789d0/archi.png)
 
-## Environmental Setup
+## A. Environmental Setup
 
 ### Step 1. clone the repo and Create your Conda Working Environment
 It is recommended to use the Anaconda virtual environment with Python 3.6. The guide for installing Anaconda on Linux is [here](https://docs.anaconda.com/anaconda/install/linux/). 
@@ -24,12 +24,12 @@ $ python -m pip install -r requirements_cfg2vec.txt
 $ conda install pygraphviz
 ```
 
-## Playing (Train, Test, Evaluate) our `cfg2vec`
+## B. Playing (Train, Test, Evaluate) our `cfg2vec`
 
 ### Step 1. prepare the training dataset
 If you have your own binary dataset and want to run it with our code, please refer how to generate new training dataset's instructions in [./data_proc/README.md](/data_proc/README.md). However, this could take a much longer time. 
 
-In this guide, we also provide a simple training dataset ([./toy_dataset.zip](./toy_dataset.zip)), which is a small subset of our derived *allStar dataset* mentioned in the paper. We suggest that try this out and see how our `cfg2vec` works first! Extract it right inplace.
+In this guide, we also provide a simple training dataset ([./toy_dataset.zip](./toy_dataset.zip)), which is a small subset of our derived *AllStar dataset* mentioned in the paper. We suggest that try this out and see how our `cfg2vec` works first! Extract it right inplace.
 ```python
 $ unzip toy_dataset.zip
 $ mkdir data
@@ -50,27 +50,15 @@ For more info regarding hyperparemeters and arguments, you can hit this command:
 $ python exp_cfg2vec_allstar.py -h 
 ```
 
-### Step 3. Test and Evaluate our `cfg2vec`
-The [`exp_cfg2vec_allstar.py`](scripts/exp_cfg2vec_allstar.py) script can be used to evaluate the trained model. We have provided a sample testing dataset to test the performance of our model. We have also provided a pre-trained model that can be downloaded for this purpose. The step-by-step guide to evaluating the model is:
-1. Check if the test dataset (`toy_test`) is existed. This is an simple processed test dataset. If you have other binary, and want to test with it then you need preprocessing it by following instruction [here](/data_proc/README.md).
-2. We also provide an pre-trained model which can be download from [here](https://drive.google.com/file/d/1MClvWI8zh1TbNxwHVObUmtPu-huBgiKB/view?usp=sharing). This model is trained with binaries compiled for 3 architectures (amd64, armel, and i386).
-
-Extract the model
-```python
-$ tar xvf GoG_model.tar.gz
-$ mv ./saved_models/GoG_train ./scripts/saved_models/GoG_train/
-$ mv GoG_train.pkl ./scripts
-$ rmdir saved_models/
-```
-
-3. Then you may use the following commands to evaluate the model. 
+### Step 3. test our `cfg2vec`
+In previous step, our trainer script will perform mini-step testing during the training. However, if you specifically want this testing to be done standalone or toward one specific dataset, please consider follow these commands (we use `toy_test` as an example). 
 ```python
 $ cd scripts/
 $ python exp_cfg2vec_allstar.py --dataset_path ../data/toy_train --pickle_path toy_train.pkl --seed 1 --device cuda --epochs 100 --batch_size 4 --pml "./saved_models/toy_train"  --architectures 'armel, amd64, i386, mipsel'  --eval_only True --eval_dataset_path ../data/toy_test --eval_pickle_path toy_test.pkl
 ```
-The prediction scores can be found in the [scripts/result](scripts/result) folder. 
+With this command, you can refer to the prediction scores in the `scripts/result` after it is done. 
 
-## Testing for function name prediction
+### Step 4: Running our `cfg2vec` for applicatons
 We made the script that utilizes the pre-trained cfg2vec model to run on Mindsight applications (function name prediction/function matching). The script can be run using either GPU or CPU. 
 1. To run the script on a GPU:
     1. Follow the instructions on [Installation Guide](#Running_cfg2vec) and install the necessary packages if you haven't done so already.
