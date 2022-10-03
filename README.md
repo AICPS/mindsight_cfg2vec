@@ -2,6 +2,8 @@ Cfg2vec methodology for Function Name Reconstruction and Patch Situation
 =====================
 TreeEmbedding is a repository maintained by the UCI team for a Hierarchical Graph Neural Network (GNN) based approach for cross-architectural function name prediction.
 
+![](https://github.com/AICPS/mindsight_cfg2vec/blob/6ae0a26c90ad2c639b925ac5029cfa6c9de789d0/archi.png)
+
 ## To Get Started
 
 <a name="Installation_Guide"></a>
