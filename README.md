@@ -50,7 +50,7 @@ For more info regarding hyperparemeters and arguments, you can hit this command:
 $ python exp_cfg2vec_allstar.py -h 
 ```
 
-### Step 3. test our `cfg2vec`
+### Step 3. test/evaluate our `cfg2vec`
 In previous step, our trainer script will perform mini-step testing during the training. However, if you specifically want this testing to be done standalone or toward one specific dataset, please consider follow these commands (we use `toy_test` as an example). 
 ```python
 $ cd scripts/
@@ -59,23 +59,20 @@ $ python exp_cfg2vec_allstar.py --dataset_path ../data/toy_train --pickle_path t
 With this command, you can refer to the prediction scores in the `scripts/result` after it is done. 
 
 ### Step 4: Running our `cfg2vec` for applicatons
-We made the script that utilizes the pre-trained cfg2vec model to run on Mindsight applications (function name prediction/function matching). The script can be run using either GPU or CPU. 
-1. To run the script on a GPU:
-    1. Follow the instructions on [Installation Guide](#Running_cfg2vec) and install the necessary packages if you haven't done so already.
-    2. Train your own model, or if you want to use our pre-trained model, you may download the pre-trained model found [here](https://drive.google.com/file/d/1MClvWI8zh1TbNxwHVObUmtPu-huBgiKB/view?usp=sharing). This model is trained with binaries compiled for 3 architectures (amd64, armel, and i386). Then extract the model, and its corresponding pickle file into [script/](./scripts/) folder.
-    3. We have sample testing data in [here](./data/match_predict_test/).
-    4. Run the following commands for function name prediction or function matching.
+To run our `cfg2vec` for applications, we've made the script utilizing the pre-trained cfg2vec model to run on **Function Name Prediction** and **Function Matching**.
 
-    ```sh
-    $ cd scripts/
+If you've followed Step 1 ~ Step 3, please make sure that you have the testing data in [./data/match_predict_test/](./data/match_predict_test/). And then, run the following commands for either function name prediction or function matching.
+```sh
+$ cd scripts/
+# for app1: function matching task.
+$ python app_cfg2vec.py --mode func_match --p1 ../data/toy_test/ipe5toxml___ipe5toxml-amd64.bin --p2 ../data/toy_test/m-tx___prepmx-amd64.bin --pml "./saved_models/toy_train" --topk 10 --o result_fm.log --device cuda
 
-    # for function matching task.
-    $ python app_cfg2vec.py --mode func_match --p1 ../data/toy_test/ipe5toxml___ipe5toxml-amd64.bin --p2 ../data/toy_test/m-tx___prepmx-amd64.bin --pml "./saved_models/toy_train" --topk 10 --o result_fm.log --device cuda
+# for app2: function name prediction task. 
+$ python app_cfg2vec.py --mode func_pred --p ../data/toy_test/ipe5toxml___ipe5toxml-amd64.bin --pdb toy_train.pkl --pml "./saved_models/toy_train" --topk 10 --o result_fpd.log --device cuda
+```
+With this command, you can refer to the prediction scores in the `./scripts/` after it is done.
 
-    # for function name prediction task. 
-    $ python app_cfg2vec.py --mode func_pred --p ../data/toy_test/ipe5toxml___ipe5toxml-amd64.bin --pdb toy_train.pkl --pml "./saved_models/toy_train" --topk 10 --o result_fpd.log --device cuda
-    ```
-    The resulting log file can be found in the [scripts/](scripts/) folder.
+You may also skip step 1~3 and use this provided pre-trained model. You may download the pre-trained model found [here](https://drive.google.com/file/d/1MClvWI8zh1TbNxwHVObUmtPu-huBgiKB/view?usp=sharing). This model is trained with binaries compiled for 3 architectures (amd64, armel, and i386). Then extract the model, and its corresponding pickle file into [script/](./scripts/) folder.
 
 ## Ackowledgements
 This material is based upon work supported by the Defense Advanced Research Projects Agency (DARPA) and Naval Information Warfare Center Pacific (NIWC Pacific) under Contract Number N66001-20-C-4024. The views, opinions, and/or findings expressed are those of the author(s) and should not be interpreted as representing the official views or policies of the Department of Defense or the U.S. Government.
