@@ -4,8 +4,8 @@ Mission-critical embedded systems leverage software to service our society's inf
 
 In this repo, we provide the implementation of our proposed `cfg2vec`, a Hierarchical Graph Neural Network (GNN) based approach for improving SRE tools in function name reconstruction.
 To represent binary code, we propose a novel `Graph-of-Graph `(GoG) representation, combining the information of control-flow graphs and function-call graphs. 
-Then, our \textit{`cfg2vec`} learns how to represent each binary function compiled from various CPU architectures, utilizing the proposed hierarchical GNN and the siamese-based learning architecture.
-We evaluate \textit{`cfg2vec`}'s capability of predicting function names from binaries stripped debugging information.
+Then, our `cfg2vec` learns how to represent each binary function compiled from various CPU architectures, utilizing the proposed hierarchical GNN and the siamese-based learning architecture.
+We evaluate `cfg2vec`'s capability of predicting function names from binaries stripped debugging information.
 
 Please refer to the following figure to get a grisp of our overall architecture.
 
