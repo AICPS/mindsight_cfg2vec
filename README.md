@@ -9,19 +9,19 @@ TreeEmbedding is a repository maintained by the UCI team for a Hierarchical Grap
 ### Step 1. clone the repo and Create your Conda Working Environment
 It is recommended to use the Anaconda virtual environment with Python 3.6. The guide for installing Anaconda on Linux is [here](https://docs.anaconda.com/anaconda/install/linux/). 
 ```sh
-    $ git clone https://github.com/AICPS/mindsight_cfg2vec.git
-    $ conda create --name [your env name] python=3.6
-    $ conda activate [your env name]
+$ git clone https://github.com/AICPS/mindsight_cfg2vec.git
+$ conda create --name [your env name] python=3.6
+$ conda activate [your env name]
 ```
 ### Step 2. resolve Package Requirements 
 This step was made based on a server with cuda 10.1 installed. You can also adjust the installation of torch and pyg according the hardware you have in your local (e.g., cpu or higher cuda).
 ```sh
-    $ cd mindsight_cfg2vec
-    $ conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=10.1 -c pytorch
-    $ python -m pip install torch-geometric==1.7.1
-    $ pip install --no-index torch-scatter torch-sparse torch-cluster torch-spline-conv -f https://pytorch-geometric.com/whl/torch-1.7.1+cu101.html
-    $ python -m pip install -r requirements_cfg2vec.txt
-    $ conda install pygraphviz
+$ cd mindsight_cfg2vec
+$ conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=10.1 -c pytorch
+$ python -m pip install torch-geometric==1.7.1
+$ pip install --no-index torch-scatter torch-sparse torch-cluster torch-spline-conv -f https://pytorch-geometric.com/whl/torch-1.7.1+cu101.html
+$ python -m pip install -r requirements_cfg2vec.txt
+$ conda install pygraphviz
 ```
 
 ## Playing (Train, Test, Evaluate) our `cfg2vec`
