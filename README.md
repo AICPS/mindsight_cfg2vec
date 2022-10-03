@@ -5,9 +5,9 @@ TreeEmbedding is a repository maintained by the UCI team for a Hierarchical Grap
 ![](https://github.com/AICPS/mindsight_cfg2vec/blob/6ae0a26c90ad2c639b925ac5029cfa6c9de789d0/archi.png)
 
 ## Environmental Setup
-It is recommended to use the Anaconda virtual environment with Python 3.6. The guide for installing Anaconda on Linux is [here](https://docs.anaconda.com/anaconda/install/linux/). 
 
 ### Step 1. Clone the repo and Create your Conda Working Environment
+It is recommended to use the Anaconda virtual environment with Python 3.6. The guide for installing Anaconda on Linux is [here](https://docs.anaconda.com/anaconda/install/linux/). 
 ```sh
     $ git clone https://github.com/AICPS/mindsight_cfg2vec.git
     $ conda create --name [your env name] python=3.6
