@@ -4,32 +4,30 @@ TreeEmbedding is a repository maintained by the UCI team for a Hierarchical Grap
 
 ![](https://github.com/AICPS/mindsight_cfg2vec/blob/6ae0a26c90ad2c639b925ac5029cfa6c9de789d0/archi.png)
 
-## To Get Started
-
-<a name="Installation_Guide"></a>
-### Installation Guide
+## Environmental Setup
 It is recommended to use the Anaconda virtual environment with Python 3.6. The guide for installing Anaconda on Linux is [here](https://docs.anaconda.com/anaconda/install/linux/). 
 
-#### 1. Clone the TreeEmbedding repository
+### Step 1. Clone the cfg2vec repository from the GitHub
 ```sh
 $ git clone https://github.com/AICPS/mindsight_cfg2vec.git
 ```
-#### 2. Create Anaconda Working Environment
+### Step 2. Create your Anaconda Working Environment
 ```sh
 $ conda create --name [your env name] python=3.6
 $ conda activate [your env name]
 ```
-#### 3. Install Necessary Packages
-Once the environment is created, then install the following modules with the commands below:
+### Step 3. Resolve Package Requirements 
+The step 3 was made based on a server that has cuda 10-1 installed. You can adjust the torch and pyg's installation according the hardware you have in your local environment (e.g., cpu or higher cuda).
 ```sh
 $ cd mindsight_cfg2vec
-$ export PATH=/usr/local/cuda-10.1/bin${PATH:+:${PATH}}
 $ conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=10.1 -c pytorch
 $ python -m pip install torch-geometric==1.7.1
 $ pip install --no-index torch-scatter torch-sparse torch-cluster torch-spline-conv -f https://pytorch-geometric.com/whl/torch-1.7.1+cu101.html
 $ python -m pip install -r requirements_cfg2vec.txt
 $ conda install pygraphviz
 ```
+
+## Training `cfg2vec`
 
 ### training dataset
 - Generated new training dataset with instructions in [./data_proc/README.md](/data_proc/README.md)
@@ -41,8 +39,6 @@ $ conda install pygraphviz
     $ mv toy_train/ data/
     $ mv toy_test/ data/
     ```
-
-## Training `cfg2vec`
 The [`exp_cfg2vec_allstar.py`](scripts/exp_cfg2vec_allstar.py) python script is used to train the `cfg2vec` model. 
 We used the *AllStar dataset*, which contains binary packages that are converted to a `CFG` representation.
 With a combination of `CFG` and `GoG` Embedding layers, the model is trained to predict the `top-k` list of function names in a binary. The user may follow the steps below in order to carry out the aforementioned preprocessing, training, and evaluation.
