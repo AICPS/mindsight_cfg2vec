@@ -20,7 +20,7 @@ $ cd mindsight_cfg2vec
 $ conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=10.1 -c pytorch
 $ python -m pip install torch-geometric==1.7.1
 $ pip install --no-index torch-scatter torch-sparse torch-cluster torch-spline-conv -f https://pytorch-geometric.com/whl/torch-1.7.1+cu101.html
-$ python -m pip install -r requirements_cfg2vec.txt
+$ python -m pip install -r requirements.txt
 $ conda install pygraphviz
 ```
 
