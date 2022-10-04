@@ -79,7 +79,7 @@ class Config():
 def read_dataset(cfg):
     if cfg.pickle_path.exists():
         dataset = pd.read_pickle(cfg.pickle_path)
-        
+
     else:
         dataset = ACFGDataset(cfg.pcode2vec)
         dataset.load(cfg.dataset_path, cfg.num_features)
@@ -129,9 +129,9 @@ if __name__ == "__main__":
     cfg = Config(sys.argv[1:])
 
     dataset = read_dataset(cfg)
-
+    
     model = cfg2vecGoG(cfg.num_layers, cfg.layer_spec, cfg.num_features, cfg.dropout, cfg.pcode2vec).to(cfg.device)
-   
+
     trainer = HSNTrainer(cfg, model, thunk_idx=dataset.func2idx['thunk']) # for siamese based network 
     
     if cfg.eval_only:

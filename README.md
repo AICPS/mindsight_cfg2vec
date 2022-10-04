@@ -63,7 +63,7 @@ With this command, you can refer to the prediction scores in the `scripts/result
 ### Step 4: Running our `cfg2vec` for applicatons
 To run our `cfg2vec` for applications, we've made the script utilizing the pre-trained cfg2vec model to run on **Function Name Prediction** and **Function Matching**.
 
-If you've followed Step 1 ~ Step 3, please make sure that you have the testing data in [./data/match_predict_test/](./data/match_predict_test/). And then, run the following commands for either function name prediction or function matching.
+If you've followed Step 1 ~ Step 3, please make sure that you have the testing data in [./data](./data/). And then, run the following commands for either function name prediction or function matching.
 ```sh
 $ cd scripts/
 # for app1: function matching task.
@@ -74,7 +74,21 @@ $ python app_cfg2vec.py --mode func_pred --p ../data/toy_test/ipe5toxml___ipe5to
 ```
 With this command, you can refer to the prediction scores in the `./scripts/` after it is done.
 
-You may also skip step 1~3 and use this provided pre-trained model. You may download the pre-trained model found [here](https://drive.google.com/file/d/1MClvWI8zh1TbNxwHVObUmtPu-huBgiKB/view?usp=sharing). This model is trained with binaries compiled for 3 architectures (amd64, armel, and i386). Then extract the model, and its corresponding pickle file into [script/](./scripts/) folder.
+You may also skip step 1~3 and use this provided pre-trained model. You may download the pre-trained model found [here](https://drive.google.com/file/d/1kAVwY_H4HPnRFThAu7sHfBj-5O93SsnB/view?usp=sharing). This model is trained with binaries compiled for 3 architectures (amd64, armel, and i386). 
+
+Then extract the model, and its corresponding pickle file into [./scripts](./scripts/) folder.
+```python
+# If there is no `./scripts/saved_models` path please create one with following command 
+# $ cd scripts/
+# $ mkdir saved_models
+# $ cd ..
+$ unzip cfg2vec_pretrained_model.zip
+$ mv GoG_train_8_12 ./scripts/saved_models/
+$ mv GoG_train.pkl ./scripts/
+$ cd scripts/
+$ python exp_cfg2vec_allstar.py --pickle_path GoG_train.pkl --seed 10 --device cuda --epochs 100 --batch_size 4 --pml ./saved_models/GoG_train_8_12 --architectures "armel, amd64, i386" --eval_only True --eval_dataset_path ../data/toy_test --eval_pickle_path toy_test.pkl
+```
+If it returned "Killed" please check the memory usage. The program need 8GB free memory to read and store data from pickle file.
 
 ## Ackowledgements
 This material is based upon work supported by the Defense Advanced Research Projects Agency (DARPA) and Naval Information Warfare Center Pacific (NIWC Pacific) under Contract Number N66001-20-C-4024. The views, opinions, and/or findings expressed are those of the author(s) and should not be interpreted as representing the official views or policies of the Department of Defense or the U.S. Government.

@@ -24,6 +24,8 @@ pip-wheel-metadata/
 share/python-wheels/
 scripts/metrics/*
 scripts/saved_models/
+scripts/result/
+scripts/metrics/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -139,3 +141,4 @@ scripts/wandb/*
 *.meta
 *.data-*
 cfg2vec_model.tar.gz
+GoG_train.pkl
