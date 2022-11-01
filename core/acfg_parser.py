@@ -8,6 +8,9 @@
     those of the author(s) and should not be interpreted
     as representing the official views or policies of
     the Department of Defense or the U.S. Government.
+
+    Distribution Statement "A" (Approved for Public Release,
+    Distribution Unlimited) 
 '''
 
 import copy, os, sys
