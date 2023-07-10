@@ -39,7 +39,66 @@ The training and evaluation dataset for this tutorial was developed using the AL
 
 In the following section, we will provide a detailed, step-by-step guide on downloading the necessary binaries from the ALLSTAR dataset. We'll then show you how to preprocess these binaries to prepare the training and testing datasets.
 
-###
+### Step 1. Get list of packages that are available for download from the ALLSTAR database
+In order to ensure the comprehensive functionality of our tool across different architectures, it is crucial that the binaries we utilize for training our model have corresponding counterparts in all the architectures that we are focusing on. For the sake of this tutorial, we will limit our focus to binaries compiled for the following four architectures:
+1. amd64
+2. armel
+3. i386
+4. mipsel
+
+To maintain consistency and quality in our training dataset, it is vital that we possess binaries compiled for all the above-mentioned architectures. Fortunately, we have designed scripts to traverse the ALLSTAR datasets and perform sanity checks to ensure that this criterion is met.
+
+We begin by running the Python script `1_generate_pkg_lists.py`, which will generate a list of packages available for download from the ALLSTAR database:
+```python
+$ python data_proc/1_generate_pkg_lists.py
+```
+
+This script will crawl through the ALLSTAR database for each architecture that we are focusing on and create a list of packages that exist across all these architectures. Let's delve a little deeper into how the script works. To optimize the execution of the script, the checks for each combination of architectures are performed in parallel processes, one for each combination of architectures.
+
+Now, you will have a list of packages that are available across your target architectures, ready for download and subsequent processing.
+
+
+### Step 2: DDownloading Packages from the ALLSTAR Database
+This step is about downloading the packages from the ALLSTAR database that exist for all the architectures we are interested in (i.e., amd64, armel, i386, mipsel). We'll be using the package list generated in the previous step to download the corresponding binaries.
+
+In the Python script `2_download_binaries.py`, you provide the path to the package list and the desired output directory for saving the downloaded binaries. The script extracts the list of packages from the file and begins the download process. The script also maintains a `'blacklist'` of packages to ignore during this process.
+
+It's important to note that each downloaded binary will have a unique filename that follows this pattern: `pkg_name___binary_name-architecture.bin`. Along with each binary, a url.txt file is also generated, which stores the URL from where the binary was downloaded.
+
+To initiate the downloading process, you would run the script with the appropriate command-line arguments like this:
+
+```python
+$ python data_proc/2_download_binaries.py --pkg_list_path /path/to/package/list/file --output_dir /path/to/output/directory
+```
+
+This script works by communicating with the ALLSTAR database to pull the required binaries for each package, across all specified architectures. Once all the binaries have been downloaded, you'll find them stored in the directory specified earlier.
+
+The end result of this step is a collection of binaries compiled for various CPU architectures, which is ready to be used in the subsequent stages of the cfg2vec model pipeline.
+
+### Step 3. Check and Filter Out Non-Compliant Packages
+
+This step is about validating the downloaded binaries and filtering out the ones that do not comply with certain criteria. The purpose of this is to ensure that the training set will only include packages that are useful and meet the requirements. The steps performed in the script can be described as follows:
+
+Check for Excessive Binaries: Packages with too many binaries could indicate potential issues or unnecessary complexity, so the script identifies these packages. The threshold of 'too many' can be defined.
+
+Check for Single Architecture Binaries: Packages where some binaries are only available in a single architecture are flagged, as this could lead to imbalance in the training dataset.
+
+Check for Large Binaries: Binaries exceeding a certain size threshold (in bytes) are flagged. This could help avoid memory issues during training or when running the model.
+
+Check for Empty Binaries: The script also checks for binaries with a size of 0, which are clearly defective or incorrect and are therefore flagged.
+
+Update the Blacklist: The identified packages from the above checks are added to the blacklist with the respective reasons for each package. This blacklist will be used to exclude these packages in the subsequent steps of the data processing pipeline.
+
+To initiate this step, run the Python script with the appropriate directory as an argument:
+
+```python
+$ python check_filter_non_compliant_packages.py --root_dir /path/to/your/directory
+```
+This script logs any issues it encounters and adds non-compliant packages to the blacklist. These flagged packages will be excluded from subsequent steps of the process, ensuring only compliant packages are considered for model training.
+
+### Step 4. Setting up Ghidra
+
+### Step 5. Ghidra graph extraction
 
 ## C. Playing (Train, Test, Evaluate) our `cfg2vec`
 
