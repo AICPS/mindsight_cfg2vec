@@ -9,8 +9,6 @@ Here is where cfg2vec offers a helping hand. Cfg2vec is a humble attempt at addr
 Building on the introduction to cfg2vec and its role in revolutionizing the landscape of reverse engineering, the following sections of this document aim to provide a comprehensive tutorial for users. <!--- Whether you're new to reverse engineering or a seasoned professional, we understand the importance of a clear, easy-to-follow guide to help you get the most out of the tool. -->
 This tutorial is meticulously designed to provide step-by-step guidelines that walk you through the process of effectively utilizing cfg2vec. It covers everything from the basics of setting up the environment to training and performing function name prediction using CFG2VEC, allowing you to fully harness the power of this tool in your reverse engineering endeavors.
 
-![](https://github.com/AICPS/mindsight_cfg2vec/blob/6ae0a26c90ad2c639b925ac5029cfa6c9de789d0/archi.png)
-
 ## A. Environmental Setup
 
 ### Step 1. Repository Cloning and Setting Up Your Conda Work Environment
